@@ -1,25 +1,71 @@
+###### Simple Flask App on Minikube
+start minikube and use docker daemon on minikube with `eval $(minikube docker-env)
+`
+1. Clone code from https://github.com/aandaldi/learn-docker.git
+2. Open python-flask/Simple-CRUD
+    
+    you can build your code from docker file here or you can pull the images from docker hub 
+    (https://cloud.docker.com/u/aandaldi/repository/docker/aandaldi/simple-crud-flask-mysql)
 
-![](https://kenya-tech.com/wp-content/uploads/2019/01/flask-python.png)
-
-# Create Simple flask apps with docker
-1. install flask package on your python environment
-2. create python file and import flask.
-3. create requirements.txt  => memuat semua file yang ingin di instal di aplikasi
-4. create docker file
+3. Create Yaml file (service and deployment)
+    example:
+    Deployment-learn-docker.yaml
+    ~~~
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+      name: learn-docker
+      labels:
+        run: learn-docker
+    spec:
+      replicas: 2
+      template:
+        metadata:
+          labels:
+            run: learn-docker
+        spec:
+          containers:
+          - name: learn-docker
+            image: aandaldi/learn-docker
+            imagePullPolicy: Never
+            ports:
+            - containerPort: 5000
+              protocol: TCP
+          imagePullSecrets:
+          - name: regsecret
+         
+    ~~~
+    
+    Service-learn-docker.yaml
+    
+    ~~~
+    kind: Service
+    apiVersion: v1
+    metadata:
+      name: learn-docker
+    spec:
+      selector:
+        run: learn-docker
+      sessionAffinity: ClientIP
+      ports:
+        - name: port1
+          protocol: TCP
+          port: 5000
+          targetPort: 5000
+      type: NodePort
 
     ~~~
-    FROM python:3.7-alpine         
-    # RUN apt-get update -y
-    # RUN apt-get install -y python-pip python-dev build-essential
-    COPY . /app 
-    WORKDIR /app
-    RUN pip install -r requirements.txt
-    #ENTRYPOINT ["python"]
-    CMD ["python","app.py"]             #cmd menjalankan file yang dengan cli python dan file yang ingin di jalankan
-    ~~~
+    
+4. apply Yaml File using `apply -f`
 
-5. build docker image
-    ~ docker build -t simple-flask . ~
+    `kubeclt apply -f Service-learn-docker.yaml`
+    
+    `kubeclt apply -f Service-learn-docker.yaml`
+    
+Or You can run the app using command line 
 
-6. run docker image 
-    `docker run -d -p 5021:5000 --rm --name simple-flask-1 simple-flask` 
+`kubectl run flask-kubernetes-example --image=aandaldi/learn-docker:latest --port=5000 --image-pull-policy=Never`
+
+`kubectl expose deployment flask-kubernetes-example --type=NodePort`
+
+5. You access the app using url. check the url using `minikube service <service-name> --url`
