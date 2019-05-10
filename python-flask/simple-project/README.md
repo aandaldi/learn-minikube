@@ -2,7 +2,7 @@
 start minikube and use docker daemon on minikube with `eval $(minikube docker-env)
 `
 1. Clone code from https://github.com/aandaldi/learn-docker.git
-2. Open python-flask/Simple-CRUD
+2. Open python-flask/simple-project
     
     you can build your code from docker file here or you can pull the images from docker hub 
     (https://cloud.docker.com/u/aandaldi/repository/docker/aandaldi/simple-crud-flask-mysql)

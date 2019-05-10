@@ -2,57 +2,21 @@
 start minikube and use docker daemon on minikube with `eval $(minikube docker-env)
 `
 1. Clone code from https://github.com/aandaldi/learn-docker.git
-2. Open python-flask/Simple-CRUD
+2. Open python-flask/simple-CRUD
     
-    you can build your code from docker file here or you can pull the images from docker hub 
-    (https://cloud.docker.com/u/aandaldi/repository/docker/aandaldi/simple-crud-flask-mysql)
+    
 
 3. Create Yaml file (service and deployment)
     example:
     Deployment-learn-docker.yaml
     ~~~
-    apiVersion: extensions/v1beta1
-    kind: Deployment
-    metadata:
-      name: learn-docker
-      labels:
-        run: learn-docker
-    spec:
-      replicas: 2
-      template:
-        metadata:
-          labels:
-            run: learn-docker
-        spec:
-          containers:
-          - name: learn-docker
-            image: aandaldi/learn-docker
-            imagePullPolicy: Never
-            ports:
-            - containerPort: 5000
-              protocol: TCP
-          imagePullSecrets:
-          - name: regsecret
-         
+    
     ~~~
     
     Service-learn-docker.yaml
     
     ~~~
-    kind: Service
-    apiVersion: v1
-    metadata:
-      name: learn-docker
-    spec:
-      selector:
-        run: learn-docker
-      sessionAffinity: ClientIP
-      ports:
-        - name: port1
-          protocol: TCP
-          port: 5000
-          targetPort: 5000
-      type: NodePort
+    
 
     ~~~
     

@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: learn-docker
+  labels:
+    run: learn-docker
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: learn-docker
+    spec:
+      containers:
+      - name: learn-docker
+        image: aandaldi/learn-docker
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+      imagePullSecrets:
+      - name: regsecret
