@@ -41,3 +41,16 @@ Beberapa contoh kontroler yang berisi satu atau lebih Pod meliputi:
 
 Secara umum, kontroler menggunakan template Pod yang kamu sediakan untuk membuat Pod.
 
+###### Perintah secara umum
+
+~~~
+# delete all pods
+ kubectl delete --all pods --namespace=default
+
+# deete all deployments
+ kubectl delete --all deployments --namespace=default
+ 
+# delete all services
+ kubectl delete --all services --namespace=default
+
+~~~

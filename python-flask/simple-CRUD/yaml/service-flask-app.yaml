@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: learn-docker
+  name: flask-app
 spec:
   selector:
-    run: learn-docker
+    run: flask-app
   sessionAffinity: ClientIP
   ports:
     - name: port1

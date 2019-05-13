@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: learn-docker
+  name: flask-app
   labels:
-    run: learn-docker
+    run: flask-app
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        run: learn-docker
+        run: flask-app
     spec:
       containers:
-      - name: learn-docker
-        image: aandaldi/learn-docker
+      - name: flask-app
+        image: flask-app
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
