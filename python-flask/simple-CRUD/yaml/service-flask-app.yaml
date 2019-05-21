@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: flask-app
+  labels: 
 spec:
   selector:
     run: flask-app

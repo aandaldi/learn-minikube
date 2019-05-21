@@ -1,19 +1,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: learn-docker
+  name: flask-simple
   labels:
-    run: learn-docker
+    run: flask-simple
+    app: test-deployment
+    tier: flask-simple
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        run: learn-docker
+        run: flask-simple
     spec:
       containers:
-      - name: learn-docker
-        image: aandaldi/learn-docker
+      - name: flask-simple
+        image: aand/learn-flask:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 5000

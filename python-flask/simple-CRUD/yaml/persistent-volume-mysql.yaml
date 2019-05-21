@@ -2,8 +2,8 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: mysql-persistent-volume
-  namespace: mysql-testing
   labels:
+    app : test-deployment
     type: local
 spec:
   storageClassName: manual

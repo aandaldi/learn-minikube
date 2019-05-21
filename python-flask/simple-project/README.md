@@ -14,26 +14,28 @@ start minikube and use docker daemon on minikube with `eval $(minikube docker-en
     apiVersion: extensions/v1beta1
     kind: Deployment
     metadata:
-      name: learn-docker
+      name: flask-simple
       labels:
-        run: learn-docker
+        run: flask-simple
+        app: test-deployment
+        tier: flask-simple
     spec:
       replicas: 2
       template:
         metadata:
           labels:
-            run: learn-docker
+            run: flask-simple
         spec:
           containers:
-          - name: learn-docker
-            image: aandaldi/learn-docker
+          - name: flask-simple
+            image: aand/learn-flask:latest
             imagePullPolicy: Never
             ports:
             - containerPort: 5000
               protocol: TCP
           imagePullSecrets:
           - name: regsecret
-         
+             
     ~~~
     
     Service-learn-docker.yaml
@@ -42,19 +44,25 @@ start minikube and use docker daemon on minikube with `eval $(minikube docker-en
     kind: Service
     apiVersion: v1
     metadata:
-      name: learn-docker
+      name: flask-simple
+      labels: 
     spec:
       selector:
-        run: learn-docker
+        run: flask-simple
       sessionAffinity: ClientIP
       ports:
         - name: port1
           protocol: TCP
           port: 5000
-          targetPort: 5000
+          #targetPort: 5000
+          nodePort: 30001
       type: NodePort
 
     ~~~
+    
+    Note:
+    ~~~
+    using `nodePort` eg `nodePort: 30001` to create static port. 
     
 4. apply Yaml File using `apply -f`
 

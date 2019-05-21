@@ -1,14 +1,16 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: learn-docker
+  name: flask-simple
+  labels: 
 spec:
   selector:
-    run: learn-docker
+    run: flask-simple
   sessionAffinity: ClientIP
   ports:
     - name: port1
       protocol: TCP
       port: 5000
-      targetPort: 5000
+      #targetPort: 5000
+      nodePort: 30001
   type: NodePort

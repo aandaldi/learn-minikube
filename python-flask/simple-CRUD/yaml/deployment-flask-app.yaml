@@ -4,6 +4,8 @@ metadata:
   name: flask-app
   labels:
     run: flask-app
+    app: test-deployment
+    tier: flask-app
 spec:
   replicas: 2
   template:
@@ -15,6 +17,9 @@ spec:
       - name: flask-app
         image: flask-app
         imagePullPolicy: Never
+        env: 
+          - name:  PMA_HOST
+            value: mysql-service 
         ports:
         - containerPort: 5000
           protocol: TCP

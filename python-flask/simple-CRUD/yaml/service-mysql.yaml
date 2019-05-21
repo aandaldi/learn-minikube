@@ -1,18 +1,25 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mysql-service
-  labels:
-    app: mysql
-    version: "1.0"
-    environment: testing
+  labels: 
+    app: test-deployment
+    
 spec:
-  selector:
-    app: mysql
-    version: "1.0"
-    environment: testing
   ports:
   - port: 3306
-  selector:
-    app: mysql
-  clusterIP: None
+    targetPort: 3306
+    protocol: TCP
+---
+# Because this service has no selector, the corresponding Endpoints
+# object will not be created. You can manually map the service to
+# your own specific endpoints:
+# kind: Endpoints
+# apiVersion: v1
+# metadata:
+#   name: mysql
+# subsets:
+#   - addresses:
+#       - ip: "1.1.1.1"
+#     ports:
+#       - port: 3306
