@@ -5,21 +5,31 @@ metadata:
   labels:
     run: flask-app
     app: test-deployment
-    tier: flask-app
+    tier: mysql
 spec:
+  selector:
+    matchLabels:
+      app: test-deployment
+      tier: mysql
   replicas: 2
   template:
     metadata:
       labels:
         run: flask-app
+        app: test-deployment
+        tier: mysql
     spec:
       containers:
       - name: flask-app
         image: flask-app
         imagePullPolicy: Never
         env: 
-          - name:  PMA_HOST
-            value: mysql-service 
+          - name : MYSQL_RANDOM_ROOT_PASSWORD
+            value: 'yes'
+          - name: MYSQL_USER
+            value: 'root'
+          - name: MYSQL_PASSWORD
+            value: 'root'
         ports:
         - containerPort: 5000
           protocol: TCP
