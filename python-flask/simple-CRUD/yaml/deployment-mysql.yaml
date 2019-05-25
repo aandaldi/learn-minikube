@@ -3,23 +3,20 @@ kind: Deployment
 metadata:
   name: mysql
   labels: 
-    run: flask-app
+    # run: flask-app
     app: test-deployment
-    tier: mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: test-deployment
-      tier: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        run: flask-app
+        # run: flask-app
         app: test-deployment
-        tier: mysql
     spec:
       containers:
       - name: mysql

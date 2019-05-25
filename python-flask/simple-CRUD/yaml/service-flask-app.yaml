@@ -7,7 +7,6 @@ metadata:
 spec:
   selector:
     app: test-deployment
-    tier: mysql
   sessionAffinity: ClientIP
   ports:
     - name: port1

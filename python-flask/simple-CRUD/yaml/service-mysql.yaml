@@ -7,7 +7,6 @@ metadata:
 spec:
   selector:
     app: test-deployment
-    tier: mysql
   ports:
   - port: 3306
     nodePort: 30036
